@@ -1,0 +1,55 @@
+﻿@inject SignInManager<AppUser> SignInMgr;
+
+<br />
+
+<div class="container row p-0 m-0">
+
+    @if (SignInMgr.IsSignedIn(User) && User.IsInRole("Seller"))
+    {
+        <div class="col-6">
+            <h2 class="text-info">House List Workbench</h2>
+        </div>
+        <div class="col-3 offset-3">
+            <a asp-action="Upsert" asp-controller="Houses" class="btn btn-info form-control text-white">
+                Add New House
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="col-6">
+            <h2 class="text-info">House List</h2>
+        </div>
+    }
+
+
+    <div class="col-12 border p-3">
+        <table id="DT_load" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Address</th>
+                    <th>Number</th>
+                    <th>Age</th>
+                    <th>Square</th>
+                    <th>Description</th>
+                    @if (User.IsInRole("Seller")){<th></th>}
+                </tr>
+            </thead>
+        </table>
+
+
+    </div>
+</div>
+
+@if (User.IsInRole("Seller"))
+{
+    @section Scripts{
+        <script src="~/js/sellerList.js"></script>
+    }
+}
+else
+{
+    @section Scripts{
+        <script src="~/js/buyerList.js"></script>
+    }
+}
