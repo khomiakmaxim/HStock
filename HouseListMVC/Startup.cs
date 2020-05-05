@@ -32,6 +32,8 @@ namespace HouseListMVC
             {
                 options.Password.RequiredLength = 8;
                 options.User.RequireUniqueEmail = true;
+
+                //options.SignIn.RequireConfirmedEmail = true;
             }).AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddDbContext<ApplicationDbContext>(option => option.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));

@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using HouseListMVC.Models;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HouseListMVC.Controllers
-{
+{    
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> UserMgr;
@@ -53,12 +56,17 @@ namespace HouseListMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = model.Email, FirstName = model.FirstName, LastName = model.LastName,  Email = model.Email, Seller = model.Seller};
+                var user = new AppUser { UserName = model.Email, FirstName = model.FirstName, LastName = model.LastName,  Email = model.Email, Seller = model.Seller, IsActive = true};
                 var result = await UserMgr.CreateAsync(user, model.Password);
 
 
                 if (result.Succeeded)
                 {
+                    if (SignInMgr.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("ListUsers", "Administration");
+                    }
+
                     result = await UserMgr.AddToRoleAsync(user, model.Seller ? "Seller" : "Buyer");
                     await SignInMgr.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
@@ -83,16 +91,43 @@ namespace HouseListMVC.Controllers
             return View();
         }
 
+        //public override Task<SignInStatus> PasswordSignInAsync(string userName, string password, bool rememberMe, bool shouldLockout)
+        //{
+        //    var user = UserManager.FindByEmailAsync(userName).Result;
+
+        //    if ((user.IsEnabled.HasValue && !user.IsEnabled.Value) || !user.IsEnabled.HasValue)
+        //    {
+        //        return Task.FromResult<SignInStatus>(SignInStatus.LockedOut);
+        //    }
+
+        //    return base.PasswordSignInAsync(userName, password, rememberMe, shouldLockout);
+        //}
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(AppLogin model, string returnUrl)
         {
-            if (ModelState.IsValid)
-            {                
-                var result = await SignInMgr.PasswordSignInAsync(
-                   model.Email, model.Password, isPersistent:model.RememberMe, false);
+            var user = await UserMgr.FindByEmailAsync(model.Email);
 
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid email or password");
+                return View(model);
+            }
+
+            if (!user.IsActive)
+            {
+                ModelState.AddModelError("", "You are banned");
+                return View(model);
+
+            }
+            
+            if (ModelState.IsValid)
+            {
                 
+                var result = await SignInMgr.PasswordSignInAsync(
+                   model.Email, model.Password, isPersistent:model.RememberMe, false); 
+                                
 
                 if (result.Succeeded)
                 {
@@ -130,6 +165,13 @@ namespace HouseListMVC.Controllers
         //}
 
         //#endregion
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
 
     }
 }

@@ -26,7 +26,9 @@ namespace HouseListMVC.Models
         public override string Email { get; set; }
         
         [DataType(DataType.Password)]               
-        public string Password { get; set; }
+        public string Password { get; set; }    
+        
+        public bool IsActive { get; set; }
 
         [Display(Name = "Confirm password")]
         [DataType(DataType.Password)]
@@ -34,7 +36,7 @@ namespace HouseListMVC.Models
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Seller")]
-        public bool Seller { get; set; }        
+        public bool Seller { get; set; }     
 
     }
 }

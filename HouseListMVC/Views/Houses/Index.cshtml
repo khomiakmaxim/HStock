@@ -4,7 +4,7 @@
 
 <div class="container row p-0 m-0">
 
-    @if (SignInMgr.IsSignedIn(User) && User.IsInRole("Seller"))
+    @if (SignInMgr.IsSignedIn(User) && User.IsInRole("Seller") || (User.IsInRole("Admin")))
     {
         <div class="col-6">
             <h2 class="text-info">House List Workbench</h2>
@@ -32,7 +32,10 @@
                     <th>Age</th>
                     <th>Square</th>
                     <th>Description</th>
-                    @if (User.IsInRole("Seller")){<th></th>}
+                    @if (User.IsInRole("Seller"))
+                    {
+                        <th></th>
+}
                 </tr>
             </thead>
         </table>
@@ -41,15 +44,21 @@
     </div>
 </div>
 
-@if (User.IsInRole("Seller"))
+@if (User.IsInRole("Seller") && !User.IsInRole("Admin"))
 {
     @section Scripts{
         <script src="~/js/sellerList.js"></script>
     }
 }
-else
+else if (User.IsInRole("Buyer") && !User.IsInRole("Admin"))
 {
     @section Scripts{
         <script src="~/js/buyerList.js"></script>
+    }
+}
+else
+{
+    @section Scripts{
+        <script src="~/js/adminList.js"></script>
     }
 }

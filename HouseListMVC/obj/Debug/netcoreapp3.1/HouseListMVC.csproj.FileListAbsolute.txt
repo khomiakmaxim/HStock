@@ -410,6 +410,14 @@ C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\bin\Debug\netcoreap
 C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\bin\Debug\netcoreapp3.1\Microsoft.Owin.Security.Cookies.dll
 C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\bin\Debug\netcoreapp3.1\Microsoft.Owin.Security.OAuth.dll
 C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\bin\Debug\netcoreapp3.1\Owin.dll
+C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\obj\Debug\netcoreapp3.1\Razor\Views\Administration\CreateRole.cshtml.g.cs
+C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\obj\Debug\netcoreapp3.1\Razor\Views\Administration\ListRoles.cshtml.g.cs
+C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\obj\Debug\netcoreapp3.1\Razor\Views\Administration\EditRole.cshtml.g.cs
+C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\obj\Debug\netcoreapp3.1\Razor\Views\Shared\NotFound.cshtml.g.cs
 C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\obj\Debug\netcoreapp3.1\HouseListMVC.csproj.CoreCompileInputs.cache
 C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\obj\Debug\netcoreapp3.1\HouseListMVC.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\obj\Debug\netcoreapp3.1\HouseListMVC.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\obj\Debug\netcoreapp3.1\Razor\Views\Administration\EditUsersInRole.cshtml.g.cs
+C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\obj\Debug\netcoreapp3.1\Razor\Views\Account\AccessDenied.cshtml.g.cs
+C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\obj\Debug\netcoreapp3.1\Razor\Views\Administration\ListUsers.cshtml.g.cs
+C:\Users\Максим\source\repos\HouseListMVC\HouseListMVC\obj\Debug\netcoreapp3.1\Razor\Views\Administration\EditUser.cshtml.g.cs

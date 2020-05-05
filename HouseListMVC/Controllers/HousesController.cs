@@ -26,7 +26,7 @@ namespace HouseListMVC.Controllers
         {
             return View();
         }
-        
+
         public IActionResult Upsert(int? id)
         {   if (User.IsInRole("Buyer"))
             {
@@ -41,7 +41,7 @@ namespace HouseListMVC.Controllers
                     return View(House);
                 }
                 House = _db.Houses.Where(p => p.AppUserId == int.Parse(User.Identity.GetUserId())).FirstOrDefault(u => u.Id == id);
-                
+
                 if (House == null)
                 {
                     return NotFound();
@@ -95,7 +95,15 @@ namespace HouseListMVC.Controllers
             }
             
         }
-                
+
+
+        [HttpGet]        
+        public async Task<IActionResult> GetAllAdm(string id)
+        {
+            //return Json(new { data = await _db.Houses.ToListAsync() });
+            return Json(new { data = await _db.Houses.Where(p => p.AppUserId == int.Parse(id)).ToListAsync() });
+        }
+
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
